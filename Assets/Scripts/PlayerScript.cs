@@ -2,22 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
-
+using UnityEngine.SceneManagement;
 public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D rd2d;
 
     public float speed;
+    public AudioClip musicClipOne;
 
+    public AudioClip musicClipTwo;
+
+    public AudioSource musicSource;
     public Text score;
-
+    public Text win;
+    public GameObject[] lives;
+    public GameObject Player;
     private int scoreValue = 0;
-
+    private int life;
+    private bool death;
+    private string sceneName;
     // Start is called before the first frame update
     void Start()
     {
         rd2d = GetComponent<Rigidbody2D>();
         score.text = scoreValue.ToString();
+        win.text = "";
+        life = lives.Length;
+        Scene currentScene = SceneManager.GetActiveScene ();
+        sceneName = currentScene.name;
+        musicSource.clip = musicClipOne;
+        musicSource.Play();
     }
     void Update()
     {
@@ -25,6 +39,12 @@ public class PlayerScript : MonoBehaviour
         {
             Application.Quit();
         }
+                if (death == true)
+        {
+            win.text = "Sorry, You've Lost! Game By Alexys Aponte";
+            Player.SetActive(false);
+        }
+
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -41,7 +61,27 @@ public class PlayerScript : MonoBehaviour
             scoreValue += 1;
             score.text = scoreValue.ToString();
             Destroy(collision.collider.gameObject);
+            if (scoreValue >=4)
+            {
+                if (sceneName == "Challenge2")
+                {
+                    SceneChange();
+                }
+                else 
+                {
+                    musicSource.clip = musicClipTwo;
+                    musicSource.Play();
+                    win.text = "You've Won! Game By Alexys Aponte";
+                }
+            }
         }
+         if (collision.collider.tag == "Enemy")
+        {
+            TakeDamage(1);
+            Debug.Log("Enemy Hit");
+            Destroy(collision.collider.gameObject);
+        }
+
 
     }
 
@@ -55,4 +95,22 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+        void SceneChange ()
+    {
+        SceneManager.LoadScene ("Challenge2 -2");
+    }
+
+    void TakeDamage(int damage)
+    {
+        if (life >= 1)
+         {
+             life -= damage;
+             Destroy(lives[life].gameObject);
+             if (life < 1)
+             {
+                 death = true;
+             }
+         }
+    }
+
     }

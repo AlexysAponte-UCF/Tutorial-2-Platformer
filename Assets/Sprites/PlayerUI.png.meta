@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e3aa55792b9079b44bfd66d22d25a118
+guid: e27350169bd8847448e2b8582e0ac0e4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -74,19 +74,7 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline:
-    - - {x: 16, y: 8}
-      - {x: 16, y: -2}
-      - {x: 12, y: -2}
-      - {x: 12, y: -16}
-      - {x: 2, y: -16}
-      - {x: 2, y: -3}
-      - {x: 0, y: -3}
-      - {x: 0, y: -16}
-      - {x: -10, y: -16}
-      - {x: -9.87851, y: -2}
-      - {x: -16, y: -2}
-      - {x: -16, y: 8}
-      - {x: -6, y: 8}
+    - - {x: -6, y: 8}
       - {x: -6, y: 16}
       - {x: 6, y: 16}
       - {x: 6, y: 8}
